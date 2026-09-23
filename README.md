@@ -17,13 +17,14 @@
 - [一、课程简介](#一课程简介)
 - [二、课程内容](#二课程内容)
 - [三、快速开始（零基础请逐步照做）](#三快速开始零基础请逐步照做)
-- [四、案例1 LSTM 单点位移时序预测](#四案例1-lstm-单点位移时序预测)
-- [五、案例2 GCN 多点监测网时空预测](#五案例2-gcn-多点监测网时空预测)
-- [六、案例3 CNN-Transformer 混合架构](#六案例3-cnn-transformer-混合架构)
-- [七、案例4 XGBoost 与 SHAP 可解释归因](#七案例4-xgboost-与-shap-可解释归因)
-- [八、拓展案例与配套教程](#八拓展案例与配套教程)
-- [九、许可证](#九许可证)
-- [十、联系方式](#十联系方式)
+- [四、算法案例](#四算法案例)
+  - [案例1 LSTM 单点位移时序预测](#案例1-lstm-单点位移时序预测)
+  - [案例2 GCN 多点监测网时空预测](#案例2-gcn-多点监测网时空预测)
+  - [案例3 CNN-Transformer 混合架构](#案例3-cnn-transformer-混合架构)
+  - [案例4 XGBoost 与 SHAP 可解释归因](#案例4-xgboost-与-shap-可解释归因)
+- [五、拓展案例与配套教程](#五拓展案例与配套教程)
+- [六、许可证](#六许可证)
+- [七、联系方式](#七联系方式)
 
 ---
 
@@ -275,7 +276,11 @@ jupyter lab
 | `SQL学习/` 教程 | 以 **Linux 为主线**，macOS 与 Windows 的差异在该教程内用「🖥 系统差异」提示框标注；该教程**不需要 Python 环境**，只需一个可用的 PostgreSQL 实例 |
 ---
 
-## ▍四、案例1 LSTM 单点位移时序预测
+## ▍四、算法案例
+
+以下是四个已完成的算法案例，每个案例都包含一份**原理 PPT**（讲清算法本身）和一本**可执行 Notebook**（从零实现 → 精度检验 → 调参 → 物理融合改进 → 不确定性量化）。
+
+### 案例1 LSTM 单点位移时序预测
 
 📂 [LSTM/](LSTM/)　·　📊 [原理 PPT](LSTM/01_LSTM_位移预测_算法介绍.pptx)　·　💻 [实现与调参 Notebook](LSTM/01_LSTM_位移预测_实现与调参.ipynb)
 
@@ -292,9 +297,8 @@ jupyter lab
 - **改进**：物理软约束、MC Dropout 不确定性区间、模型集成；
 - **模型族对比**：LSTM / GRU / BiLSTM。
 
----
 
-## ▍五、案例2 GCN 多点监测网时空预测
+### 案例2 GCN 多点监测网时空预测
 
 📂 [GCN/](GCN/)　·　📊 [原理 PPT](GCN/02_GCN_多点监测网时空预测_算法介绍.pptx)　·　💻 [实现与调参 Notebook](GCN/02_GCN_多点监测网时空预测_实现与调参.ipynb)
 
@@ -312,9 +316,8 @@ jupyter lab
 - **物理正则**：图平滑正则项（变形场空间连续先验）；
 - **结果分析**：逐节点误差的空间分布、全网 MC Dropout 区间。
 
----
 
-## ▍六、案例3 CNN-Transformer 混合架构
+### 案例3 CNN-Transformer 混合架构
 
 📂 [CNN-Transformer/](CNN-Transformer/)　·　📊 [原理 PPT](CNN-Transformer/03_CNN_Transformer_位移预测_算法介绍.pptx)　·　💻 [实现与调参 Notebook](CNN-Transformer/03_CNN_Transformer_位移预测_实现与调参.ipynb)
 
@@ -332,9 +335,8 @@ jupyter lab
 - **物理先验**：卷积响应核的软约束（非负 + 指数滞后衰减）；
 - **不确定性**：MC Dropout 预测区间。
 
----
 
-## ▍七、案例4 XGBoost 与 SHAP 可解释归因
+### 案例4 XGBoost 与 SHAP 可解释归因
 
 📂 [XGBoost+SHAP/](XGBoost+SHAP/)　·　📊 [原理 PPT](XGBoost+SHAP/04_XGBoost_SHAP_位移预测与归因_算法介绍.pptx)　·　💻 [实现与调参 Notebook](XGBoost+SHAP/04_XGBoost_SHAP_位移预测与归因_实现与调参.ipynb)　·　📄 [数据说明](XGBoost+SHAP/数据说明.md)
 
@@ -354,7 +356,7 @@ jupyter lab
 
 ---
 
-## ▍八、拓展案例与配套教程
+## ▍五、拓展案例与配套教程
 
 | 资源 | 内容 |
 |---|---|
@@ -371,13 +373,13 @@ jupyter lab
 
 ---
 
-## ▍九、许可证
+## ▍六、许可证
 
 本项目采用 **[MIT License](LICENSE)**（Copyright © 2026 OpenGeoriskLab）。可自由使用、修改、分发，请保留版权声明。
 
 > 第三方材料说明：[`demo001/`](demo001/) 为论文原始 MATLAB 代码与数据，遵循其自身的 Apache-2.0 许可；其中的**论文 PDF 未随本仓库分发**（该 PDF 为出版社正式排版版，版权归出版社所有），请通过 [DOI](https://doi.org/10.1007/s11069-025-07703-4) 在期刊页面获取。
 
-## ▍十、联系方式
+## ▍七、联系方式
 
 - 维护：OpenGeoriskLab（<zhousuhua@foxmail.com>）
 - 问题与建议：欢迎提交 [Issue](https://github.com/georisk-zsh/dl-geo/issues) 或 Pull Request
