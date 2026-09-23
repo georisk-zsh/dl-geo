@@ -113,7 +113,7 @@ $$\boxed{\;\frac{\partial\mathbf{h}_t}{\partial\mathbf{h}_{t-1}}=\mathrm{diag}\b
 >
 > 记忆法：前向是"$\mathbf{W}$ 乘上去"，反向是"$\mathbf{W}^{\top}$ 乘回来"。数值验证（见 [§9.4](#94-关于验证)）：$\mathrm{diag}(\tanh')\mathbf{W}_h$ 与数值雅可比完全一致，而 $\mathrm{diag}(\tanh')\mathbf{W}_h^{\top}$ 不一致。
 
-其中 $\mathbf{1}-\mathbf{h}_t\odot\mathbf{h}_t=\tanh'(\cdot)\in(0,1]$ 是**逐元素**的对角矩阵，$\mathbf{W}_h^{\top}$ 是**全连接**的矩阵。
+其中 $\mathbf{1}-\mathbf{h}_t\odot\mathbf{h}_t=\tanh'(\cdot)\in(0,1]$ 是**逐元素**的对角矩阵（每个分量各自缩放），$\mathbf{W}_h$ 是**全连接**的矩阵（把各分量混合起来）——**逐元素缩放与全连接混合的组合，正是这个雅可比的结构特征**。
 
 ### 3.2 连乘与范数界
 
