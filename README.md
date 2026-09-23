@@ -2,8 +2,6 @@
 
 ### AI Algorithms for Geotechnical Engineering: Case Studies
 
-**研究型课程仓库** — 边坡与库岸边坡安全监测中的时序预测、时空建模、可解释归因与不确定性量化
-
 ![Course](https://img.shields.io/badge/Course-Graduate-blueviolet)
 ![Cases](https://img.shields.io/badge/Cases-4%20released%20%C2%B7%204%20planned-orange)
 [![Materials](https://img.shields.io/badge/Materials-PPT%20%C2%B7%20Notebook%20%C2%B7%20Tutorial-brightgreen)](SQL学习/README.md)
