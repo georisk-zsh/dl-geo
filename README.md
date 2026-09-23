@@ -18,7 +18,7 @@
 
 - [课程简介](#课程简介)
 - [课程内容](#课程内容)
-- [环境配置与运行](#环境配置与运行)
+- [快速开始（零基础请逐步照做）](#快速开始零基础请逐步照做)
 - [案例一 LSTM 单点位移时序预测](#案例一-lstm-单点位移时序预测)
 - [案例二 GCN 多点监测网时空预测](#案例二-gcn-多点监测网时空预测)
 - [案例三 CNN-Transformer 混合架构](#案例三-cnn-transformer-混合架构)
@@ -83,18 +83,99 @@
 
 ---
 
-## 环境配置与运行
+## 快速开始（零基础请逐步照做）
 
-需要 **Python 3.12**；依赖见 [`requirements.txt`](requirements.txt)（文件头记录了各库的已验证版本）。以下按 **macOS / Linux / Windows** 分别说明。
+> **从没用过命令行？** 请按下面的 **第 0 步 → 第 5 步** 顺序操作，不要跳步。每一步都给了 macOS / Linux / Windows 三种系统的做法，找到你系统那一栏照着敲即可。
 
-### 1. 创建并激活环境
+### 第 0 步　安装必备工具
 
-conda 与 venv 任选其一。**区别主要在激活命令**，这是最容易卡住的一步。
+**① Miniconda（必需）** —— 用来创建 Python 环境、管理各种库
 
-**macOS / Linux**（Terminal）
+到官网下载与你系统对应的安装包（**选 Python 3.12 版本**）：<https://docs.conda.io/en/latest/miniconda.html>
+
+| 系统 | 安装方式 |
+|---|---|
+| Windows | 下载 `.exe` 双击安装，**一路点"下一步"保持默认即可**（不要勾选 "Add to PATH"）；安装完成后，今后一律用开始菜单里的 **「Anaconda Prompt (miniconda3)」** 打开命令行 |
+| macOS | 下载 `.pkg` 双击安装；或用 Homebrew：`brew install --cask miniconda` |
+| Linux | 下载 `.sh` 脚本后执行：`bash Miniconda3-latest-Linux-x86_64.sh`，按提示输入 `yes` |
+
+安装完**验证**（在终端里敲，能显示版本号就成功了）：
 
 ```bash
-# 方式 A：conda
+conda --version
+```
+
+**② Git（可选）** —— 只有你想用 `git clone` 下载项目时才需要
+
+| 系统 | 安装方式 |
+|---|---|
+| Windows | 下载 <https://git-scm.com/download/win> 双击安装 |
+| macOS | 终端执行 `xcode-select --install`；或 `brew install git` |
+| Linux | `sudo apt install git`（Debian/Ubuntu）或 `sudo dnf install git` |
+
+> 不想装 Git 也没关系——第 1 步的**方式 A** 完全不需要 Git。
+
+### 第 1 步　把项目下载到本地
+
+**方式 A：网页下载 ZIP（推荐零基础，不用 Git）**
+
+1. 浏览器打开 <https://github.com/georisk-zsh/dl-geo>
+2. 点绿色的 **`Code`** 按钮 → 在下拉菜单里选 **`Download ZIP`**
+3. 下载完成后**解压缩**（Windows 右键 →"全部解压缩"；macOS 双击）
+4. 得到一个文件夹（通常名为 `dl-geo-main`），**建议重命名为 `dl-geo`**
+
+**方式 B：用 Git 克隆（需要第 0 步的 Git）**
+
+```bash
+git clone https://github.com/georisk-zsh/dl-geo.git
+```
+
+> 国内网络下 GitHub 可能较慢；下载缓慢时改用方式 A 的 ZIP，或换个时间/网络重试。
+
+**⚠️ 文件放在哪里很重要**
+
+- 路径中**不要出现中文和空格**，否则个别 Python 库会报错；
+- 建议放在：Windows → `D:\dl-geo`；macOS / Linux → `~/dl-geo`（即用户主目录下）；
+- **记住这个路径**，第 2 步要用。
+
+### 第 2 步　打开终端，进入项目文件夹
+
+**Windows**
+
+1. 打开「文件资源管理器」进入 `D:\dl-geo` 文件夹；
+2. 在**地址栏**里把路径删掉、输入 `cmd` 然后回车 —— 会直接在这个目录打开命令行窗口。
+
+（也可以：先打开「Anaconda Prompt (miniconda3)」，再用 `cd /d D:\dl-geo` 切过去。注意 Windows **跨盘符切换必须加 `/d`**，只写 `cd D:\dl-geo` 是不会跳转的。）
+
+**macOS**
+
+1. `Command + 空格` 搜索并打开「终端」；
+2. 敲 `cd ~/dl-geo` 回车。
+
+（也可以：在访达里右键项目文件夹 → 服务 → "新建位于文件夹位置的终端窗口"。）
+
+**Linux**
+
+```bash
+cd ~/dl-geo
+```
+
+**确认是否进对了目录**：
+
+```bash
+ls          # Windows 上如果提示找不到 ls，用 dir
+```
+
+应该能看到 `README.md`、`LSTM`、`GCN`、`requirements.txt` 这些名字。**如果看不到，说明目录进错了**，回到上面重新 `cd`。
+
+### 第 3 步　配置 Python 环境
+
+**先创建并激活环境** —— conda 与 venv 任选其一，**区别主要在激活命令**：
+
+**macOS / Linux**
+
+```bash
+# 方式 A：conda（推荐）
 conda create -n dl-env python=3.12 -y
 conda activate dl-env
 
@@ -103,10 +184,10 @@ python3.12 -m venv .venv
 source .venv/bin/activate
 ```
 
-**Windows**（**建议用「Anaconda Prompt」**，普通 PowerShell 里 `conda` 可能不可用）
+**Windows**
 
 ```powershell
-# 方式 A：conda
+# 方式 A：conda（推荐）
 conda create -n dl-env python=3.12 -y
 conda activate dl-env
 
@@ -116,18 +197,23 @@ py -3.12 -m venv .venv
 ```
 
 > ⚠️ **Windows 两个常见报错**
-> - `conda : 无法将"conda"项识别为 cmdlet`　→ 改用「Anaconda Prompt」；或在 PowerShell 执行一次 `conda init powershell` 后**重开窗口**。
-> - 激活 venv 时提示"禁止运行脚本"　→ 执行 `Set-ExecutionPolicy -Scope Process RemoteSigned`（仅当前窗口生效），或改用 `.venv\Scripts\activate.bat`。
+> - `conda : 无法将"conda"项识别为 cmdlet` → 改用「Anaconda Prompt (miniconda3)」；或在 PowerShell 执行一次 `conda init powershell` 后**重开窗口**（不重开不生效）。
+> - 激活 venv 时提示"禁止运行脚本" → 执行 `Set-ExecutionPolicy -Scope Process RemoteSigned`（仅当前窗口生效），或改用 `.venv\Scripts\activate.bat`。
 
-### 2. 安装依赖（三系统通用）
+激活成功的标志：命令行提示符前面会出现 `(dl-env)`。
+
+**再安装依赖**（三系统相同）：
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. 配置 torch 算力后端（三系统不同）
+> 🚀 **国内下载慢**（这是最常见的问题）：换清华镜像，速度快很多：
+> ```bash
+> pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+> ```
 
-`requirements.txt` 装的是 **CPU 版** torch。想用 GPU 或 Apple 芯片加速，按平台处理：
+**最后按平台配置 torch 的算力后端**（`requirements.txt` 装的是 **CPU 版**）：
 
 | 平台 / 硬件 | 做法 |
 |---|---|
@@ -138,24 +224,57 @@ pip install -r requirements.txt
 | **无独立显卡** | 默认 wheel（CPU）即可，无需任何操作 |
 
 > ⚙️ CUDA 版本必须与显卡驱动匹配，**具体该用 `cu124` 还是别的版本，请到官方选择器确认**：<https://pytorch.org/get-started/locally/>（选好 OS / Package / Compute Platform 后会给出可直接复制的命令）。
+>
+> 💡 国内下载 CUDA 版 torch 通常较慢。**建议先按默认装 CPU 版把整个流程跑通**，之后再换 GPU 版也不迟。
 
-### 4. 注册 Jupyter 内核并启动（三系统通用）
+### 第 4 步　首次运行与验证
+
+**先做个 3 秒自检**（确认依赖都装上了）：
+
+```bash
+python -c "import torch, numpy, pandas, sklearn; print('依赖 OK, torch', torch.__version__)"
+```
+
+看到 `依赖 OK, torch 2.x.x` 就没问题了。若报 `ModuleNotFoundError`，说明第 3 步没装全，回去重跑 `pip install -r requirements.txt`。
+
+**注册 Jupyter 内核并启动**（三系统相同）：
 
 ```bash
 python -m ipykernel install --user --name dl-env --display-name "Python [dl-env]"
 jupyter lab
 ```
 
-打开任一案例文件夹中的 Notebook，内核选择 **Python [dl-env]**。
+浏览器会自动打开 Jupyter 页面（若没自动打开，把终端里显示的 `http://localhost:8888/...` 那行地址复制到浏览器）。
 
-### 5. 平台差异备忘
+**跑通第一个 Notebook**：
+
+1. 在左侧文件列表点进 `LSTM/` 文件夹；
+2. 双击 `01_LSTM_位移预测_实现与调参.ipynb` 打开；
+3. 看**右上角的内核名**，如果不是 **Python [dl-env]**，点它切换过来；
+4. 菜单栏 **Run → Run All Cells**（或按 `Shift + Enter` 一格一格跑）；
+5. **成功标志**：全程没有红色报错，图像和指标正常出现。第一次跑需要几分钟。
+
+### 第 5 步　遇到问题怎么办
+
+| 现象 | 原因 | 解决 |
+|---|---|---|
+| `conda : 无法将"conda"项识别为...` | Windows 用了普通 cmd/PowerShell | 改用「Anaconda Prompt (miniconda3)」 |
+| `'git' 不是内部或外部命令` | 没装 Git | 改用第 1 步的**方式 A**（下载 ZIP），或安装 Git |
+| Windows 里 `cd D:\dl-geo` 没反应 | 跨盘符切换 | 加 `/d`：`cd /d D:\dl-geo` |
+| `pip install` 极慢 / 超时 | 默认源在国外 | 换镜像：`-i https://pypi.tuna.tsinghua.edu.cn/simple` |
+| Notebook 里 `ModuleNotFoundError: No module named 'torch'` | 内核选错，或环境没装好 | 确认右上角内核是 **Python [dl-env]**；重跑第 3 步 |
+| `jupyter: command not found` | 依赖没装全 | 回到第 3 步重跑 `pip install -r requirements.txt` |
+| 内核列表里没有 Python [dl-env] | 未注册内核 | 重跑 `python -m ipykernel install --user --name dl-env --display-name "Python [dl-env]"` |
+| 各种莫名其妙的路径报错 | 项目路径含**中文或空格** | 把项目移到纯英文、无空格的路径（如 `D:\dl-geo`） |
+| 跑得特别慢 | 在用 CPU 训练 | 正常现象；需要加速见第 3 步的 torch 后端配置 |
+
+### 平台差异备忘
 
 | 事项 | 说明 |
 |---|---|
 | `remote_dl.sh` | 是 **Bash 脚本**：macOS / Linux 直接运行；**Windows 需在 Git Bash 或 WSL 中执行**（或自行用 PowerShell 手工 rsync / ssh） |
 | 路径写法 | Notebook 内一律使用**相对路径**，三系统通用；请勿写死 `D:\...` 或 `/Users/...` |
 | `SQL学习/` 教程 | 以 **Linux 为主线**，macOS 与 Windows 的差异在该教程内用「🖥 系统差异」提示框标注；该教程**不需要 Python 环境**，只需一个可用的 PostgreSQL 实例 |
-
 ---
 
 ## 案例一 LSTM 单点位移时序预测
