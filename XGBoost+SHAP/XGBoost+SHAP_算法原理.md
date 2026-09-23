@@ -4,6 +4,8 @@
 >
 > 本文完整推导 **XGBoost 的二阶泰勒目标、最优叶权重与分裂增益公式**，以及 **SHAP 的公理体系与 TreeSHAP 的精确性来源**，配建树流程图、归因分解图、数值算例，并说明物理单调约束如何实现。建议先读本文再看 Notebook。
 
+> **[📐 数学预备知识](../算法原理_数学预备知识.md)**：矩阵、导数、链式法则、softmax、特征值……零基础先读这一份（含手算例子）
+
 **目录**
 
 - [1. 问题设定：为什么需要树模型](#1-问题设定为什么需要树模型)
@@ -102,7 +104,7 @@ $$\frac{l(\hat y+\epsilon)+l(\hat y-\epsilon)-2l(\hat y)}{\epsilon^2}=1.000001\;
 |---|---|---|---|
 | 平方损失 | $\hat y-y$ | $1$ | 本案例主模型 |
 | Logistic | $\sigma(\hat y)-y$ | $\sigma(\hat y)(1-\sigma(\hat y))$ | 分类 |
-| 分位数损失（$\alpha$） | $\alpha-\mathbb{1}[y<\hat y]$ | $1$（近似常数） | [§10.3](#103-不确定性分位数回归) 的区间预测 |
+| 分位数损失（$\alpha$） | $\mathbb{1}[y<\hat y]-\alpha$ | 常数（如 1） | [§10.3](#103-不确定性分位数回归) 的区间预测 |
 
 框架不变、只换两个数组——这让 §4 的建树算法可以完全不关心具体任务。
 
@@ -580,7 +582,14 @@ $$\mathcal{L}_\alpha(y,\hat y)=\begin{cases}\alpha\,(y-\hat y), & y\ge\hat y\\ (
 
 其 $(g,h)$ 为（$\alpha=0.5$ 时退化为 MAE）：
 
-$$g=\alpha-\mathbb{1}[y<\hat y],\qquad h\approx 1$$
+$$g=\mathbb{1}[y<\hat y]-\alpha,\qquad h\ \text{取常数（如 1）}$$
+
+> ⚠️ **符号最容易写反**，而且写反会把预测推向错误方向。逐段求导核对：
+> - 当 $y>\hat y$（欠预测）：$L=\alpha(y-\hat y)$，则 $g=\partial L/\partial\hat y=-\alpha<0$ → 更新量 $w^*=-G/(H+\lambda)>0$ → **把预测推大** ✓
+> - 当 $y<\hat y$（过预测）：$L=(1-\alpha)(\hat y-y)$，则 $g=1-\alpha>0$ → $w^*<0$ → **把预测推小** ✓
+>
+> 若写成 $g=\alpha-\mathbb{1}[y<\hat y]$，欠预测时会得到 $g=+\alpha$，反而把预测推**小**——方向完全相反。
+> 另外，pinball 损失是分段线性的，二阶导几乎处处为 0，所以 XGBoost 用**常数** $h$ 近似（数学上不是严格二阶展开，但工程上稳定有效）。
 
 XGBoost 里直接用 `objective="reg:quantileerror"` + `quantile_alpha=α`。分别训 $\alpha=0.05$ 与 $0.95$ 两个模型，就得到 90% 预测区间：
 

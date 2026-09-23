@@ -4,6 +4,8 @@
 >
 > 本文从"为什么需要它"讲起，**完整推导前向与反向传播**，配网络结构图、单元内部示意图、数值手算示例，并说明它在位移预测中学到了什么。建议先读本文再看 Notebook，代码里每一步都能对上。
 
+> **[📐 数学预备知识](../算法原理_数学预备知识.md)**：矩阵、导数、链式法则、softmax、特征值……零基础先读这一份（含手算例子）
+
 **目录**
 
 - [1. 问题设定：时序预测的数学表述](#1-问题设定时序预测的数学表述)
@@ -103,7 +105,13 @@ $$\frac{\partial\mathcal{L}}{\partial\mathbf{h}_t}=\frac{\partial\mathcal{L}_t}{
 
 由 $\mathbf{h}_t=\tanh(\mathbf{W}_h\mathbf{h}_{t-1}+\cdots)$，逐元素求导并用链式法则：
 
-$$\boxed{\;\frac{\partial\mathbf{h}_t}{\partial\mathbf{h}_{t-1}}=\mathrm{diag}\big(\mathbf{1}-\mathbf{h}_t\odot\mathbf{h}_t\big)\,\mathbf{W}_h^{\top}\;}$$
+$$\boxed{\;\frac{\partial\mathbf{h}_t}{\partial\mathbf{h}_{t-1}}=\mathrm{diag}\big(\mathbf{1}-\mathbf{h}_t\odot\mathbf{h}_t\big)\,\mathbf{W}_h\;}$$
+
+> ⚠️ **转置在哪一侧很重要，这里最容易记反**：
+> - **雅可比**（前向的局部线性化）是 $\mathrm{diag}(\tanh')\mathbf{W}_h$，**不带转置**；
+> - **反向传播**（把误差往回送）才是 $\boldsymbol\delta_{t-1}=\mathbf{W}_h^{\top}\,\mathrm{diag}(\tanh')\,\boldsymbol\delta_t$，**转置出现在这里**。
+>
+> 记忆法：前向是"$\mathbf{W}$ 乘上去"，反向是"$\mathbf{W}^{\top}$ 乘回来"。数值验证（见 [§9.4](#94-关于验证)）：$\mathrm{diag}(\tanh')\mathbf{W}_h$ 与数值雅可比完全一致，而 $\mathrm{diag}(\tanh')\mathbf{W}_h^{\top}$ 不一致。
 
 其中 $\mathbf{1}-\mathbf{h}_t\odot\mathbf{h}_t=\tanh'(\cdot)\in(0,1]$ 是**逐元素**的对角矩阵，$\mathbf{W}_h^{\top}$ 是**全连接**的矩阵。
 
@@ -111,11 +119,13 @@ $$\boxed{\;\frac{\partial\mathbf{h}_t}{\partial\mathbf{h}_{t-1}}=\mathrm{diag}\b
 
 跨 $k$ 步的梯度要把雅可比连乘 $k$ 次：
 
-$$\frac{\partial\mathbf{h}_{t+k}}{\partial\mathbf{h}_t}=\prod_{j=1}^{k}\mathrm{diag}\big(\mathbf{1}-\mathbf{h}_{t+j}\odot\mathbf{h}_{t+j}\big)\,\mathbf{W}_h^{\top}$$
+$$\frac{\partial\mathbf{h}_{t+k}}{\partial\mathbf{h}_t}=\prod_{j=1}^{k}\mathrm{diag}\big(\mathbf{1}-\mathbf{h}_{t+j}\odot\mathbf{h}_{t+j}\big)\,\mathbf{W}_h$$
 
-对范数取上界（利用 $\|\mathrm{diag}(\cdot)\|\le\gamma$ 与矩阵谱半径 $\rho$）：
+对范数取上界（利用 $\|\mathrm{diag}(\cdot)\|\le\gamma$ 与矩阵的**谱范数** $\sigma_{\max}$）：
 
-$$\left\|\frac{\partial\mathbf{h}_{t+k}}{\partial\mathbf{h}_t}\right\|\;\le\;\big(\gamma\,\rho\big)^{k},\qquad \gamma=\max|\tanh'|\le 1,\quad\rho=\rho(\mathbf{W}_h)$$
+$$\left\|\frac{\partial\mathbf{h}_{t+k}}{\partial\mathbf{h}_t}\right\|\;\le\;\big(\gamma\,\sigma_{\max}\big)^{k},\qquad \gamma=\max|\tanh'|\le 1,\quad\sigma_{\max}=\|\mathbf{W}_h\|_2$$
+
+> 谱范数 $\sigma_{\max}$ 是 $\mathbf{W}_h$ 的最大奇异值；当 $\mathbf{W}_h$ 对称时可简写为谱半径 $\rho(\mathbf{W}_h)$（许多教材直接写 $\rho$）。
 
 **结论**：$\gamma\rho<1$ 指数衰减（消失），$\gamma\rho>1$ 指数增长（爆炸）。
 
@@ -428,6 +438,29 @@ $$\boxed{\;\boldsymbol\delta^c_t=\underbrace{\boldsymbol\delta^h_t\odot\mathbf{o
 
 **这个式子就是 LSTM 的全部秘密**：第二项只有**逐元素乘 $\mathbf{f}$**，不含权重矩阵、不含激活导数。若 $\mathbf{f}\approx1$，梯度可近乎无损地跨时间步回传。
 
+**补一步：它是怎么来的？** 用链式法则把"$\mathbf{c}_t$ 影响哪些下游量"逐个列出来，只有两条路径：
+
+```text
+路径 1：c_t ──→ h_t = o_t ⊙ tanh(c_t) ──→ 本步输出 ŷ_t ──→ L
+路径 2：c_t ──→ c_{t+1} = f_{t+1} ⊙ c_t + i_{t+1} ⊙ c̃_{t+1} ──→ （继续往后）
+```
+
+两条路径的贡献相加：
+
+$$\boldsymbol\delta^c_t=\underbrace{\frac{\partial\mathcal{L}}{\partial\mathbf{h}_t}\cdot\frac{\partial\mathbf{h}_t}{\partial\mathbf{c}_t}}_{\text{路径 1}}+\underbrace{\frac{\partial\mathcal{L}}{\partial\mathbf{c}_{t+1}}\cdot\frac{\partial\mathbf{c}_{t+1}}{\partial\mathbf{c}_t}}_{\text{路径 2}}$$
+
+逐项求出这两个局部导数：
+
+$$
+\frac{\partial\mathbf{h}_t}{\partial\mathbf{c}_t}=\mathrm{diag}\Big(\mathbf{o}_t\odot\big(\mathbf{1}-\tanh^2\mathbf{c}_t\big)\Big)
+\quad\text{（因为 } \mathbf{h}_t=\mathbf{o}_t\odot\tanh(\mathbf{c}_t)\text{，而 } \tanh'=1-\tanh^2\text{）}
+$$
+
+$$\frac{\partial\mathbf{c}_{t+1}}{\partial\mathbf{c}_t}=\mathrm{diag}\big(\mathbf{f}_{t+1}\big)
+\quad\text{（因为 } \mathbf{c}_{t+1}=\mathbf{f}_{t+1}\odot\mathbf{c}_t+\cdots\text{，对 } \mathbf{c}_t \text{ 求导只剩 } \mathbf{f}_{t+1}\text{）}$$
+
+把 $\mathrm{diag}(\mathbf{v})\,\mathbf{u}=\mathbf{v}\odot\mathbf{u}$（见[数学预备知识 §3.1](../算法原理_数学预备知识.md)）代入，即得上面的递推式。**注意路径 1 里带着 $\tanh'$ 与 $\mathbf{o}_t$（都会压缩梯度），路径 2 里只有 $\mathbf{f}$（可学到接近 1）——这就是为什么长程梯度主要走路径 2。**
+
 ### 7.4 各门与候选的伴随
 
 先算各门**预激活**的梯度（用到 $\sigma'(z)=\sigma(z)(1-\sigma(z))$ 与 $\tanh'(z)=1-\tanh^2(z)$）：
@@ -526,9 +559,9 @@ $$\frac{\partial\mathbf{c}_{t+k}}{\partial\mathbf{c}_t}\approx\prod_{j=1}^{k}\ma
 
 | | RNN | LSTM 的 $\mathbf{c}$ 通路 |
 |---|---|---|
-| 跨步雅可比 | $\mathrm{diag}(\tanh')\,\mathbf{W}_h^{\top}$ | $\mathrm{diag}(\mathbf{f}_t)+\text{次级项}$ |
+| 跨步雅可比 | $\mathrm{diag}(\tanh')\,\mathbf{W}_h$ | $\mathrm{diag}(\mathbf{f}_t)+\text{次级项}$ |
 | 是否含权重矩阵 | **含**，每次连乘 | 主干**不含** |
-| 衰减规律 | $(\gamma\rho)^k$，$\gamma\le1$ 由激活函数定死 | $\prod f_j$，$f$ 可学到 $\to1$ |
+| 衰减规律 | $(\gamma\sigma_{\max})^k$，$\gamma\le1$ 由激活函数定死 | $\prod f_j$，$f$ 可学到 $\to1$ |
 | 能否自适应 | 不能 | **能**（$f$ 由数据学） |
 
 **一句话**：RNN 的衰减率被激活函数锁死；LSTM 把衰减率变成了**可学习参数**。
