@@ -19,10 +19,10 @@
 - [课程简介](#课程简介)
 - [课程内容](#课程内容)
 - [快速开始（零基础请逐步照做）](#快速开始零基础请逐步照做)
-- [案例一 LSTM 单点位移时序预测](#案例一-lstm-单点位移时序预测)
-- [案例二 GCN 多点监测网时空预测](#案例二-gcn-多点监测网时空预测)
-- [案例三 CNN-Transformer 混合架构](#案例三-cnn-transformer-混合架构)
-- [案例四 XGBoost 与 SHAP 可解释归因](#案例四-xgboost-与-shap-可解释归因)
+- [案例1 LSTM 单点位移时序预测](#案例1-lstm-单点位移时序预测)
+- [案例2 GCN 多点监测网时空预测](#案例2-gcn-多点监测网时空预测)
+- [案例3 CNN-Transformer 混合架构](#案例3-cnn-transformer-混合架构)
+- [案例4 XGBoost 与 SHAP 可解释归因](#案例4-xgboost-与-shap-可解释归因)
 - [拓展案例与配套教程](#拓展案例与配套教程)
 - [许可证](#许可证)
 - [联系方式](#联系方式)
@@ -70,14 +70,14 @@
 
 | 案例 | 算法 | 应用场景 | 教学材料 |
 |---|---|---|---|
-| ① | **LSTM** | 单点位移预测 | [原理 PPT](LSTM/01_LSTM_位移预测_算法介绍.pptx) · [Notebook](LSTM/01_LSTM_位移预测_实现与调参.ipynb) |
-| ② | **GCN** | 多点监测网时空预测 | [原理 PPT](GCN/02_GCN_多点监测网时空预测_算法介绍.pptx) · [Notebook](GCN/02_GCN_多点监测网时空预测_实现与调参.ipynb) |
-| ③ | **CNN-Transformer** | 单点位移预测（混合架构） | [原理 PPT](CNN-Transformer/03_CNN_Transformer_位移预测_算法介绍.pptx) · [Notebook](CNN-Transformer/03_CNN_Transformer_位移预测_实现与调参.ipynb) |
-| ④ | **XGBoost + SHAP** | 单点位移预测与归因 | [原理 PPT](XGBoost+SHAP/04_XGBoost_SHAP_位移预测与归因_算法介绍.pptx) · [Notebook](XGBoost+SHAP/04_XGBoost_SHAP_位移预测与归因_实现与调参.ipynb) |
-| ⑤ | 分位数 / Conformal 风险区间 | 规划中.... | 超越概率 → 风险矩阵 |
-| ⑥ | PINN | 规划中.... | 太沙基固结正问题 → 参数反演 |
-| ⑦ | 神经算子（FNO / DeepONet） | 规划中.... | 替代 FEM 代理模型 |
-| ⑧ | 时序基础模型（Chronos / TimesFM） | 规划中.... | zero-shot 能力边界对比 |
+| 1 | **LSTM** | 单点位移预测 | [原理 PPT](LSTM/01_LSTM_位移预测_算法介绍.pptx) · [Notebook](LSTM/01_LSTM_位移预测_实现与调参.ipynb) |
+| 2 | **GCN** | 多点监测网时空预测 | [原理 PPT](GCN/02_GCN_多点监测网时空预测_算法介绍.pptx) · [Notebook](GCN/02_GCN_多点监测网时空预测_实现与调参.ipynb) |
+| 3 | **CNN-Transformer** | 单点位移预测（混合架构） | [原理 PPT](CNN-Transformer/03_CNN_Transformer_位移预测_算法介绍.pptx) · [Notebook](CNN-Transformer/03_CNN_Transformer_位移预测_实现与调参.ipynb) |
+| 4 | **XGBoost + SHAP** | 单点位移预测与归因 | [原理 PPT](XGBoost+SHAP/04_XGBoost_SHAP_位移预测与归因_算法介绍.pptx) · [Notebook](XGBoost+SHAP/04_XGBoost_SHAP_位移预测与归因_实现与调参.ipynb) |
+| 5 | 分位数 / Conformal 风险区间 | 规划中.... | 超越概率 → 风险矩阵 |
+| 6 | PINN | 规划中.... | 太沙基固结正问题 → 参数反演 |
+| 7 | 神经算子（FNO / DeepONet） | 规划中.... | 替代 FEM 代理模型 |
+| 8 | 时序基础模型（Chronos / TimesFM） | 规划中.... | zero-shot 能力边界对比 |
 
 > 📐 **统一的工程规范**（所有 Notebook 共用）：防泄漏数据流水线（训练段 fit / 按目标时刻划分）、速率目标 + 累积重构两级口径、早停回滚 + 梯度裁剪、随机搜索调参、消融实验、物理融合软约束模板、不确定性量化。
 
@@ -277,7 +277,7 @@ jupyter lab
 | `SQL学习/` 教程 | 以 **Linux 为主线**，macOS 与 Windows 的差异在该教程内用「🖥 系统差异」提示框标注；该教程**不需要 Python 环境**，只需一个可用的 PostgreSQL 实例 |
 ---
 
-## 案例一 LSTM 单点位移时序预测
+## 案例1 LSTM 单点位移时序预测
 
 📂 [LSTM/](LSTM/)　·　📊 [原理 PPT](LSTM/01_LSTM_位移预测_算法介绍.pptx)　·　💻 [实现与调参 Notebook](LSTM/01_LSTM_位移预测_实现与调参.ipynb)
 
@@ -296,7 +296,7 @@ jupyter lab
 
 ---
 
-## 案例二 GCN 多点监测网时空预测
+## 案例2 GCN 多点监测网时空预测
 
 📂 [GCN/](GCN/)　·　📊 [原理 PPT](GCN/02_GCN_多点监测网时空预测_算法介绍.pptx)　·　💻 [实现与调参 Notebook](GCN/02_GCN_多点监测网时空预测_实现与调参.ipynb)
 
@@ -316,13 +316,13 @@ jupyter lab
 
 ---
 
-## 案例三 CNN-Transformer 混合架构
+## 案例3 CNN-Transformer 混合架构
 
 📂 [CNN-Transformer/](CNN-Transformer/)　·　📊 [原理 PPT](CNN-Transformer/03_CNN_Transformer_位移预测_算法介绍.pptx)　·　💻 [实现与调参 Notebook](CNN-Transformer/03_CNN_Transformer_位移预测_实现与调参.ipynb)
 
 **算法简介**　本案例把两种机制组合起来分工协作：**CNN（因果一维卷积）是"局部模式扫描仪"**，只看相邻几天，擅长捕捉周期性波动与短期响应；**Transformer（自注意力）是"全局观察者"**，让任意两个时间步直接相连，擅长建模长距离依赖。相比纯循环网络，它既能并行计算，又能显式给出时间步之间的关联强度。
 
-**本案例做什么**　与案例①相同的单点位移预测任务，换用更强的混合架构。
+**本案例做什么**　与案例1相同的单点位移预测任务，换用更强的混合架构。
 
 **案例要点**
 
@@ -336,7 +336,7 @@ jupyter lab
 
 ---
 
-## 案例四 XGBoost 与 SHAP 可解释归因
+## 案例4 XGBoost 与 SHAP 可解释归因
 
 📂 [XGBoost+SHAP/](XGBoost+SHAP/)　·　📊 [原理 PPT](XGBoost+SHAP/04_XGBoost_SHAP_位移预测与归因_算法介绍.pptx)　·　💻 [实现与调参 Notebook](XGBoost+SHAP/04_XGBoost_SHAP_位移预测与归因_实现与调参.ipynb)　·　📄 [数据说明](XGBoost+SHAP/数据说明.md)
 
@@ -352,7 +352,7 @@ jupyter lab
 - **调参**：随机搜索 + 验证集早停；
 - **物理约束**：单调性约束（强降雨方向的外推保险）；
 - **SHAP 归因**：加和一致性检查、特征重要性 bar/beeswarm、依赖图、加速日瀑布图、驱动因子 Top-5 报告；
-- **扩展**：分位数回归初探（衔接案例⑤的区间预测）。
+- **扩展**：分位数回归初探（衔接案例5的区间预测）。
 
 ---
 
