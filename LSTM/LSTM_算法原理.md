@@ -275,15 +275,21 @@ flowchart TB
 
 ### 4.7 参数量
 
-四个门各需 $\mathbf{W}\in\mathbb{R}^{n\times d}$、$\mathbf{U}\in\mathbb{R}^{n\times n}$、$\mathbf{b}\in\mathbb{R}^{n}$：
+四个门各需 $\mathbf{W}\in\mathbb{R}^{n\times d}$、$\mathbf{U}\in\mathbb{R}^{n\times n}$、$\mathbf{b}\in\mathbb{R}^{n}$。
 
-$$N_{\text{LSTM}}(n,d)=4\big(\underbrace{nd}_{\mathbf{W}}+\underbrace{n^2}_{\mathbf{U}}\big)+4n=4n(n+d)+4n$$
+**注意两种计数约定**（这一点很容易算错）：
 
-| 配置 | 参数量 |
-|---|---|
-| $n=64,\ d=8$ | 18,688 |
-| $n=64,\ d=4$（本案例层 1） | 17,664 |
-| $n=498,\ d=1$（论文附录配置） | 996,000 |
+$$N^{\text{math}}_{\text{LSTM}}(n,d)=4n(n+d)+4n \qquad\text{（数学文献约定：每门一个偏置）}$$
+
+$$N^{\text{torch}}_{\text{LSTM}}(n,d)=4n(n+d)+8n \qquad\text{（PyTorch 实现：每门两个偏置 } \mathbf{b}_{ih},\mathbf{b}_{hh}\text{）}$$
+
+> ⚠️ **本案例用 PyTorch，必须用第二个式子**。若按数学约定算，$n=64,d=4$ 会少算 256 个参数，两层的误差累计 512。
+
+| 配置 | 数学约定 | PyTorch（本案例） |
+|---|---|---|
+| $n=64,\ d=4$（层 1 输入） | 17,664 | **17,920** |
+| $n=64,\ d=64$（层 2 输入） | 33,024 | **33,280** |
+| $n=498,\ d=1$（论文附录配置） | 996,000 | 999,984 |
 
 ---
 
@@ -318,13 +324,15 @@ flowchart LR
 
 ### 5.2 逐层参数量核算
 
-| 层 | 计算式 | 参数量 |
+| 层 | 计算式（PyTorch 双偏置） | 参数量 |
 |---|---|---|
-| LSTM 层 1 | $4\times64\times(64+4)+4\times64$ | 17,664 |
-| LSTM 层 2 | $4\times64\times(64+64)+4\times64$ | 33,024 |
+| LSTM 层 1 | $4\times64\times(64+4)+8\times64$ | 17,920 |
+| LSTM 层 2 | $4\times64\times(64+64)+8\times64$ | 33,280 |
 | `Linear(64→32)` | $64\times32+32$ | 2,080 |
 | `Linear(32→1)` | $32\times1+1$ | 33 |
-| **合计** | | **52,801** |
+| **合计** | | **53,313** |
+
+> 该数字与 Notebook 中 `sum(p.numel() for p in model.parameters())` 的实际打印值一致。
 
 > 层 2 的输入维度是 64（层 1 的隐状态），**不是** 4——这是读代码时最容易看错的地方。
 
@@ -844,15 +852,15 @@ class LSTMCellScratch(nn.Module):
 <details>
 <summary>点击查看第 10 题答案</summary>
 
-| 层 | 计算 | 参数量 |
+| 层 | 计算（PyTorch 双偏置 $\mathbf{b}_{ih},\mathbf{b}_{hh}$） | 参数量 |
 |---|---|---|
-| LSTM 层 1 | $4\times64\times(64+4)+4\times64$ | 17,664 |
-| LSTM 层 2 | $4\times64\times(64+64)+4\times64$ | 33,024 |
+| LSTM 层 1 | $4\times64\times(64+4)+8\times64$ | 17,920 |
+| LSTM 层 2 | $4\times64\times(64+64)+8\times64$ | 33,280 |
 | `Linear(64→32)` | $64\times32+32$ | 2,080 |
 | `Linear(32→1)` | $32\times1+1$ | 33 |
-| **合计** | | **52,801** |
+| **合计** | | **53,313** |
 
-注意第 2 层的输入维度是 **64**（层 1 的隐状态），不是 4。
+两个易错点：① 第 2 层输入维度是 **64**（层 1 的隐状态），不是 4；② PyTorch 每个门有**两个**偏置，只算一个会少 512。
 
 </details>
 

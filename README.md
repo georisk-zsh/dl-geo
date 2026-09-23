@@ -300,7 +300,7 @@ jupyter lab
 
 ### 案例2 GCN 多点监测网时空预测
 
-📂 [GCN/](GCN/)　·　📊 [原理 PPT](GCN/02_GCN_多点监测网时空预测_算法介绍.pptx)　·　💻 [实现与调参 Notebook](GCN/02_GCN_多点监测网时空预测_实现与调参.ipynb)
+📂 [GCN/](GCN/)　·　📘 [**算法原理详解**](GCN/GCN_算法原理.md)（图卷积推导 + 结构图）　·　📊 [原理 PPT](GCN/02_GCN_多点监测网时空预测_算法介绍.pptx)　·　💻 [实现与调参 Notebook](GCN/02_GCN_多点监测网时空预测_实现与调参.ipynb)
 
 **算法简介**　GCN（图卷积网络）把监测点当作图的节点、把测点之间的空间关系当作边。每个节点的新特征由**它自己和邻居节点**的信息聚合而来，因此能利用"相邻测点变形相似"这一空间规律。
 
@@ -319,7 +319,7 @@ jupyter lab
 
 ### 案例3 CNN-Transformer 混合架构
 
-📂 [CNN-Transformer/](CNN-Transformer/)　·　📊 [原理 PPT](CNN-Transformer/03_CNN_Transformer_位移预测_算法介绍.pptx)　·　💻 [实现与调参 Notebook](CNN-Transformer/03_CNN_Transformer_位移预测_实现与调参.ipynb)
+📂 [CNN-Transformer/](CNN-Transformer/)　·　📘 [**算法原理详解**](CNN-Transformer/CNN-Transformer_算法原理.md)（注意力推导 + 结构图）　·　📊 [原理 PPT](CNN-Transformer/03_CNN_Transformer_位移预测_算法介绍.pptx)　·　💻 [实现与调参 Notebook](CNN-Transformer/03_CNN_Transformer_位移预测_实现与调参.ipynb)
 
 **算法简介**　本案例把两种机制组合起来分工协作：**CNN（因果一维卷积）是"局部模式扫描仪"**，只看相邻几天，擅长捕捉周期性波动与短期响应；**Transformer（自注意力）是"全局观察者"**，让任意两个时间步直接相连，擅长建模长距离依赖。相比纯循环网络，它既能并行计算，又能显式给出时间步之间的关联强度。
 
@@ -338,7 +338,7 @@ jupyter lab
 
 ### 案例4 XGBoost 与 SHAP 可解释归因
 
-📂 [XGBoost+SHAP/](XGBoost+SHAP/)　·　📊 [原理 PPT](XGBoost+SHAP/04_XGBoost_SHAP_位移预测与归因_算法介绍.pptx)　·　💻 [实现与调参 Notebook](XGBoost+SHAP/04_XGBoost_SHAP_位移预测与归因_实现与调参.ipynb)　·　📄 [数据说明](XGBoost+SHAP/数据说明.md)
+📂 [XGBoost+SHAP/](XGBoost+SHAP/)　·　📘 [**算法原理详解**](XGBoost+SHAP/XGBoost+SHAP_算法原理.md)（增益公式 + SHAP 推导）　·　📊 [原理 PPT](XGBoost+SHAP/04_XGBoost_SHAP_位移预测与归因_算法介绍.pptx)　·　💻 [实现与调参 Notebook](XGBoost+SHAP/04_XGBoost_SHAP_位移预测与归因_实现与调参.ipynb)　·　📄 [数据说明](XGBoost+SHAP/数据说明.md)
 
 **算法简介**　**XGBoost** 是梯度提升树（GBDT）的代表实现，把许多棵浅决策树逐棵累加，每棵新树专门拟合前面所有树的残差，因此在表格型数据上往往最强。**SHAP** 则解决"模型为什么这么预测"：它把一次预测的贡献**公平地分摊到每个特征**上（基于博弈论的 Shapley 值），对树模型有精确的多项式算法（TreeSHAP）。
 
