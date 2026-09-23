@@ -299,7 +299,7 @@ $$N^{\text{torch}}_{\text{LSTM}}(n,d)=4n(n+d)+8n \qquad\text{（PyTorch 实现�
 |---|---|---|
 | $n=64,\ d=4$（层 1 输入） | 17,664 | **17,920** |
 | $n=64,\ d=64$（层 2 输入） | 33,024 | **33,280** |
-| $n=498,\ d=1$（论文附录配置） | 996,000 | 999,984 |
+| $n=498,\ d=1$（论文附录配置） | 996,000 | 997,992 |
 
 ---
 
@@ -543,9 +543,17 @@ $$\frac{\partial\mathbf{c}_t}{\partial\mathbf{c}_{t-1}}=\underbrace{\mathrm{diag
 
 次级项经链式法则再展开，例如
 
-$$\frac{\partial\mathbf{f}_t}{\partial\mathbf{c}_{t-1}}=\mathrm{diag}\big(\mathbf{f}_t\odot(\mathbf{1}-\mathbf{f}_t)\big)\,\mathbf{U}_f^{\top}\,\mathrm{diag}\big(\mathbf{o}_{t-1}\odot(\mathbf{1}-\tanh^2\mathbf{c}_{t-1})\big)$$
+$$\frac{\partial\mathbf{f}_t}{\partial\mathbf{c}_{t-1}}=\mathrm{diag}\big(\mathbf{f}_t\odot(\mathbf{1}-\mathbf{f}_t)\big)\,\mathbf{U}_f\,\mathrm{diag}\big(\mathbf{o}_{t-1}\odot(\mathbf{1}-\tanh^2\mathbf{c}_{t-1})\big)$$
 
-——**含 $\mathbf{U}_f^{\top}$ 权重矩阵**，因此会和 RNN 一样衰减。
+逐项读这个式子：
+
+1. $\dfrac{\partial\mathbf{h}_{t-1}}{\partial\mathbf{c}_{t-1}}=\mathrm{diag}\big(\mathbf{o}_{t-1}\odot(1-\tanh^2\mathbf{c}_{t-1})\big)$——由 $\mathbf{h}_{t-1}=\mathbf{o}_{t-1}\odot\tanh(\mathbf{c}_{t-1})$ 求导；
+2. $\dfrac{\partial\mathbf{f}_t}{\partial\mathbf{h}_{t-1}}=\mathrm{diag}\big(\mathbf{f}_t\odot(1-\mathbf{f}_t)\big)\,\mathbf{U}_f$——由 $\mathbf{f}_t=\sigma(\mathbf{W}_f\mathbf{x}_t+\mathbf{U}_f\mathbf{h}_{t-1}+\mathbf{b}_f)$ 求导，**注意这里不带转置**（与 [§3.1](#31-单步雅可比) 同一个道理：雅可比是 $\mathrm{diag}(\sigma')\mathbf{U}$，转置只出现在反向回传时）；
+3. 两者相乘即得上式。
+
+——**含 $\mathbf{U}_f$ 权重矩阵**，因此这一项会和 RNN 一样衰减。
+
+> ⚠️ **这是全篇最容易写错的一个地方**：链式展开里的 $\mathbf{U}_f$ **不带转置**（它是对"$\mathbf{f}$ 关于 $\mathbf{h}_{t-1}$"求导得到的雅可比），而反向传播公式 $\boldsymbol\delta^h_{t-1}=\sum_g\mathbf{U}_g^{\top}\boldsymbol\delta^g_t$ 里的 $\mathbf{U}_g^{\top}$ **带转置**。两者容易混，请对照 [§3.1](#31-单步雅可比) 的辨析框一起看。
 
 ### 8.2 主干项为什么是"传送带"
 
