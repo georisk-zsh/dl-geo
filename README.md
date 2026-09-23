@@ -1,13 +1,14 @@
-# 《人工智能算法与岩土工程应用案例》
+<h1 align="center">《人工智能算法与岩土工程应用案例》</h1>
+<h3 align="center">AI Algorithms for Geotechnical Engineering: Case Studies</h3>
 
-### AI Algorithms for Geotechnical Engineering: Case Studies
-
-![Course](https://img.shields.io/badge/Course-Graduate-blueviolet)
-![Cases](https://img.shields.io/badge/Cases-4%20released%20%C2%B7%204%20planned-orange)
-[![Materials](https://img.shields.io/badge/Materials-PPT%20%C2%B7%20Notebook%20%C2%B7%20Tutorial-brightgreen)](SQL学习/README.md)
-[![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)](requirements.txt)
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.9-EE4C2C?logo=pytorch&logoColor=white)](requirements.txt)
-[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+<p align="center">
+  <img alt="Course" src="https://img.shields.io/badge/Course-Graduate-blueviolet">
+  <img alt="Cases" src="https://img.shields.io/badge/Cases-4%20released%20%C2%B7%204%20planned-orange">
+  <a href="SQL学习/README.md"><img alt="Materials" src="https://img.shields.io/badge/Materials-PPT%20%C2%B7%20Notebook%20%C2%B7%20Tutorial-brightgreen"></a>
+  <a href="requirements.txt"><img alt="Python" src="https://img.shields.io/badge/Python-3.12-3776AB?logo=python&amp;logoColor=white"></a>
+  <a href="requirements.txt"><img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-2.9-EE4C2C?logo=pytorch&amp;logoColor=white"></a>
+  <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/License-MIT-green"></a>
+</p>
 
 **关键词**：边坡稳定性 · 位移预测 · 深度学习 · 图神经网络 · 物理信息约束 · 可解释归因 · 不确定性量化
 
