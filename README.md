@@ -10,8 +10,6 @@
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/License-MIT-green"></a>
 </p>
 
-**关键词**：边坡稳定性 · 位移预测 · 深度学习 · 图神经网络 · 物理信息约束 · 可解释归因 · 不确定性量化
-
 ---
 
 ## ▍目录
