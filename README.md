@@ -18,12 +18,12 @@
 
 - [课程简介](#课程简介)
 - [课程内容](#课程内容)
+- [环境配置与运行](#环境配置与运行)
 - [案例一 LSTM 单点位移时序预测](#案例一-lstm-单点位移时序预测)
 - [案例二 GCN 多点监测网时空预测](#案例二-gcn-多点监测网时空预测)
 - [案例三 CNN-Transformer 混合架构](#案例三-cnn-transformer-混合架构)
 - [案例四 XGBoost 与 SHAP 可解释归因](#案例四-xgboost-与-shap-可解释归因)
 - [拓展案例与配套教程](#拓展案例与配套教程)
-- [环境与运行](#环境与运行)
 - [许可证](#许可证)
 - [联系方式](#联系方式)
 
@@ -80,6 +80,33 @@
 | ⑧ | 时序基础模型（Chronos / TimesFM） | 规划中 | zero-shot 能力边界对比 |
 
 > 📐 **统一的工程规范**（所有 Notebook 共用）：防泄漏数据流水线（训练段 fit / 按目标时刻划分）、速率目标 + 累积重构两级口径、早停回滚 + 梯度裁剪、随机搜索调参、消融实验、物理融合软约束模板、不确定性量化。
+
+---
+
+## 环境配置与运行
+
+需要 **Python 3.12**；依赖见 [`requirements.txt`](requirements.txt)（文件头记录了各库的已验证版本）。
+
+```bash
+# 1. 创建并激活环境（conda 或 venv 任选其一）
+conda create -n dl-env python=3.12 -y && conda activate dl-env
+#   或：python3.12 -m venv .venv && source .venv/bin/activate
+
+# 2. 安装依赖
+pip install -r requirements.txt
+
+# 3. 注册 Jupyter 内核（Notebook 里选 "Python [dl-env]"）
+python -m ipykernel install --user --name dl-env --display-name "Python [dl-env]"
+
+# 4. 打开 Notebook
+jupyter lab
+```
+
+> ⚙️ `requirements.txt` 安装的是 CPU 版 torch。需要 GPU（CUDA）或 Apple MPS 时，请按官方命令单独安装，参考 <https://pytorch.org/get-started/locally/>。
+>
+> 🖥 需要把训练放到远程 GPU 服务器上跑时，用仓库根目录的 [`remote_dl.sh`](remote_dl.sh)：先在脚本顶部【手动配置区】填好服务器信息，支持 `check` / `push` / `train` / `log` / `stop` / `pull` 六个子命令。
+>
+> 📄 [SQL学习/](SQL学习/) 是纯 SQL + Shell 教程，**不需要 Python 环境**，只需一个可用的 PostgreSQL 实例。
 
 ---
 
@@ -176,33 +203,6 @@
 | 论文复现：安全系数预测（[work001](work001/)） | LSTM 孔压时序预测（[work001](work001/)） |
 |---|---|
 | ![端到端 FS 预测](work001/figs/05_e2e_fs.png) | ![孔压预测](work001/figs/02_lstm_por.png) |
-
----
-
-## 环境与运行
-
-需要 **Python 3.12**；依赖见 [`requirements.txt`](requirements.txt)（文件头记录了各库的已验证版本）。
-
-```bash
-# 1. 创建并激活环境（conda 或 venv 任选其一）
-conda create -n dl-env python=3.12 -y && conda activate dl-env
-#   或：python3.12 -m venv .venv && source .venv/bin/activate
-
-# 2. 安装依赖
-pip install -r requirements.txt
-
-# 3. 注册 Jupyter 内核（Notebook 里选 "Python [dl-env]"）
-python -m ipykernel install --user --name dl-env --display-name "Python [dl-env]"
-
-# 4. 打开 Notebook
-jupyter lab
-```
-
-> ⚙️ `requirements.txt` 安装的是 CPU 版 torch。需要 GPU（CUDA）或 Apple MPS 时，请按官方命令单独安装，参考 <https://pytorch.org/get-started/locally/>。
->
-> 🖥 需要把训练放到远程 GPU 服务器上跑时，用仓库根目录的 [`remote_dl.sh`](remote_dl.sh)：先在脚本顶部【手动配置区】填好服务器信息，支持 `check` / `push` / `train` / `log` / `stop` / `pull` 六个子命令。
->
-> 📄 [SQL学习/](SQL学习/) 是纯 SQL + Shell 教程，**不需要 Python 环境**，只需一个可用的 PostgreSQL 实例。
 
 ---
 
