@@ -83,6 +83,18 @@ $$\text{RNN：}\quad \mathbf{h}_t=\tanh\big(\underbrace{\mathbf{W}_h\mathbf{h}_{
 
 $$\text{LSTM：}\quad \boxed{\mathbf{c}_t=\underbrace{\mathbf{f}_t\odot\mathbf{c}_{t-1}}_{\text{旧状态逐元素乘}}+\underbrace{\mathbf{i}_t\odot\tilde{\mathbf{c}}_t}_{\text{新内容逐元素乘}}}$$
 
+```mermaid
+flowchart TB
+    subgraph S1["RNN：旧状态乘矩阵，所有维度互相混合"]
+        A1["hₜ₋₁ 旧状态"] -->|"× Wₕ 矩阵"| A2["hₜ"]
+    end
+    subgraph S2["LSTM：传送带——逐元素缩放再相加，维度互不混合"]
+        B1["cₜ₋₁ 旧记忆"] -->|"⊙ fₜ 遗忘门"| B3["＋ 相加"]
+        B2["iₜ ⊙ c̃ₜ 新内容"] --> B3
+        B3 --> B4["cₜ"]
+    end
+```
+
 注意符号的区别：
 
 - **RNN** 里旧状态被**矩阵** $\mathbf{W}_h$ 相乘——这是一个"混合所有维度"的运算，梯度回传时会连乘矩阵；
@@ -200,9 +212,10 @@ $$N=4\times\big(n(d+n)+n\big)$$
 
 细胞状态 $\mathbf{c}_t$ 往下游影响两件事：
 
-```text
-路径 1：c_t ──→ h_t = o_t ⊙ tanh(c_t) ──→ 本步输出 ──→ 损失
-路径 2：c_t ──→ c_t+1 = f_t+1 ⊙ c_t + …  ──→ 继续往后
+```mermaid
+flowchart LR
+    CT["cₜ"] -->|"路径 1：本步通路"| HT["hₜ = oₜ ⊙ tanh(cₜ)"] --> OUT["本步输出"] --> L["损失"]
+    CT -->|"路径 2：传送带，长期记忆通路"| C2["cₜ₊₁ = fₜ₊₁ ⊙ cₜ + …"] --> C3["继续往后传递"]
 ```
 
 两条路径的贡献相加，得到细胞状态的梯度：
