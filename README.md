@@ -74,10 +74,10 @@
 | ② | **GCN** | 多点监测网时空预测 | [原理 PPT](GCN/02_GCN_多点监测网时空预测_算法介绍.pptx) · [Notebook](GCN/02_GCN_多点监测网时空预测_实现与调参.ipynb) |
 | ③ | **CNN-Transformer** | 单点位移预测（混合架构） | [原理 PPT](CNN-Transformer/03_CNN_Transformer_位移预测_算法介绍.pptx) · [Notebook](CNN-Transformer/03_CNN_Transformer_位移预测_实现与调参.ipynb) |
 | ④ | **XGBoost + SHAP** | 单点位移预测与归因 | [原理 PPT](XGBoost+SHAP/04_XGBoost_SHAP_位移预测与归因_算法介绍.pptx) · [Notebook](XGBoost+SHAP/04_XGBoost_SHAP_位移预测与归因_实现与调参.ipynb) |
-| ⑤ | 分位数 / Conformal 风险区间 | 规划中 | 超越概率 → 风险矩阵 |
-| ⑥ | PINN | 规划中 | 太沙基固结正问题 → 参数反演 |
-| ⑦ | 神经算子（FNO / DeepONet） | 规划中 | 替代 FEM 代理模型 |
-| ⑧ | 时序基础模型（Chronos / TimesFM） | 规划中 | zero-shot 能力边界对比 |
+| ⑤ | 分位数 / Conformal 风险区间 | 规划中.... | 超越概率 → 风险矩阵 |
+| ⑥ | PINN | 规划中.... | 太沙基固结正问题 → 参数反演 |
+| ⑦ | 神经算子（FNO / DeepONet） | 规划中.... | 替代 FEM 代理模型 |
+| ⑧ | 时序基础模型（Chronos / TimesFM） | 规划中.... | zero-shot 能力边界对比 |
 
 > 📐 **统一的工程规范**（所有 Notebook 共用）：防泄漏数据流水线（训练段 fit / 按目标时刻划分）、速率目标 + 累积重构两级口径、早停回滚 + 梯度裁剪、随机搜索调参、消融实验、物理融合软约束模板、不确定性量化。
 
