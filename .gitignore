@@ -1,0 +1,32 @@
+# ---- macOS ----
+.DS_Store
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# ---- Jupyter ----
+.ipynb_checkpoints/
+
+# ---- 远程训练产物（remote_dl.sh pull 的落地目录）----
+remote_results/
+train_*.log
+*.log
+
+# ---- 编辑器/IDE ----
+.vscode/
+.idea/
+*.swp
+
+# ---- 本地密钥与凭据（永远不要提交）----
+*.pem
+.env
+.pgpass
+
+# ---- 第三方版权材料（不随本仓库再分发）----
+# demo001/论文.pdf 是 Springer 出版社的正式排版版（DOI 10.1007/s11069-025-07703-4），
+# 不在 demo001 的 Apache-2.0 授权范围内。请通过期刊页面合法获取，或自行放置后本地使用。
+demo001/论文.pdf

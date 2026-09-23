@@ -1,0 +1,6 @@
+指标,"本复现 (slope2, 72 h)",MATLAB demo (slope2),论文 (9 边坡)
+LSTM 采样点 POR 单步 RMSE (kPa),7.51,"11.85 (MATLAB demo, slope2)",4.9（9 边坡汇总）
+"插值场 RMSE, linear (kPa)",29.51,—,≈2.1（重建场）
+CNN FS RMSE（真值 POR）,0.0203,—,0.02（测试集）
+端到端 FS RMSE（LSTM→插值→CNN）,0.0118,≈0.03 口径,0.03（实际边坡）
+端到端 FS R²,0.2394,—,—
