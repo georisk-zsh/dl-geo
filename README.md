@@ -2,13 +2,27 @@
 
 ## 环境准备
 
-使用本机已有的 conda 环境 `dl-env`（Python 3.12 + PyTorch 2.9 + PyG 2.7 + MPS）：
+需要 **Python 3.12**，其余依赖见 [`requirements.txt`](requirements.txt)（文件头记录了各库的已验证版本）。
 
 ```bash
-conda activate dl-env
-# 若缺包：pip install -r requirements.txt
-# Jupyter 内核已注册为 "Python [dl-env]"
+# 1. 创建并激活环境（conda 或 venv 任选其一）
+conda create -n dl-env python=3.12 -y && conda activate dl-env
+#   或：python3.12 -m venv .venv && source .venv/bin/activate
+
+# 2. 安装依赖
+pip install -r requirements.txt
+
+# 3. 注册 Jupyter 内核（Notebook 里选 "Python [dl-env]"）
+python -m ipykernel install --user --name dl-env --display-name "Python [dl-env]"
 ```
+
+> ⚙️ **torch 的算力后端**：`requirements.txt` 装的是 CPU 版。要用 GPU（CUDA）或 Apple MPS，请按官方命令单独安装 torch，例如 Apple 芯片：
+> ```bash
+> pip install torch --index-url https://download.pytorch.org/whl/cpu   # CPU
+> # 或参考 https://pytorch.org/get-started/locally/ 选择 CUDA / MPS 版本
+> ```
+
+> 📄 **不需要 Python 环境的部分**：[SQL学习/](SQL学习/) 是纯 SQL + Shell 教程，只需一个可用的 PostgreSQL 实例（见 [第 2 章](SQL学习/第02章_安装与服务管理.md)）。
 
 ## 运行
 

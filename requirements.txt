@@ -1,10 +1,52 @@
+# ============================================================
+# DL-Geo 运行环境依赖
+#
+# 安装：
+#   pip install -r requirements.txt
+#
+# 已验证环境（取自各 Notebook 输出中打印的实际版本）：
+#   Python 3.12 · numpy 2.3.5 · pandas 2.3.3 · torch 2.9.1
+#   torch-geometric 2.7.0 · xgboost 3.1.2 · h5py 3.16.0
+#
+# 注意：torch 的 GPU（CUDA）/ Apple MPS 版本请按官方命令单独安装，
+#       以获得正确的算力后端：https://pytorch.org/get-started/locally/
+#
+# 注意：SQL学习/ 目录是纯 SQL + Shell 教程，不需要任何 Python 依赖。
+# ============================================================
+
+# ---------- 数值计算与数据处理（全部算法） ----------
 numpy>=2.0
 pandas>=2.0
-scikit-learn>=1.4
+scipy>=1.11               # 插值（work001 的 natural-neighbor 插值）、统计检验
+
+# ---------- 经典机器学习 ----------
+scikit-learn>=1.4         # 标准化、KNN 建图、岭回归基线、评价指标
+
+# ---------- 梯度提升树 ----------
+xgboost>=3.0              # 算法④：GBDT。SHAP 值由内置精确 TreeSHAP（pred_contribs）
+                          #   直接给出，无需另装 shap 包；注意 3.x 与 2.x 的
+                          #   sklearn 包装 API 有差异
+
+# ---------- 深度学习 ----------
+torch>=2.2                # 算法①②③：LSTM / GCN / CNN-Transformer
+torch-geometric>=2.6      # 算法②：PyG（GCNConv / GATConv / 与官方实现对齐）
+
+# ---------- 经典时序模型 ----------
+statsmodels>=0.14         # ARIMA-Kalman：SARIMAX 拟合与预测
+
+# ---------- 绘图 ----------
 matplotlib>=3.8
-torch>=2.2
-nbformat
-nbclient
-ipykernel
-# 可选：贝叶斯超参搜索（Notebook §8.4）
-# optuna>=3.6
+
+# ---------- 论文复现的数据读取（work001） ----------
+h5py>=3.10                # MATLAB v7.3 的 .mat 是 HDF5 格式，必须用 h5py；
+                          #   scipy.io.loadmat 读不了 v7.3
+
+# ---------- Notebook 构建与执行 ----------
+nbformat                  # _build_*.py 组装并写出 .ipynb
+nbclient                  # 无界面执行 Notebook（jupyter execute）
+ipykernel                 # Notebook 内核 "Python [dl-env]"
+ipython                   # Notebook 内 from IPython.display import display
+
+# ---------- 可选 ----------
+# optuna>=3.6             # 贝叶斯超参搜索（算法① Notebook §8.4）。
+                          #   代码内已用 try/except 包裹，未安装不影响运行
