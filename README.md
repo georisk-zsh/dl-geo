@@ -85,28 +85,76 @@
 
 ## 环境配置与运行
 
-需要 **Python 3.12**；依赖见 [`requirements.txt`](requirements.txt)（文件头记录了各库的已验证版本）。
+需要 **Python 3.12**；依赖见 [`requirements.txt`](requirements.txt)（文件头记录了各库的已验证版本）。以下按 **macOS / Linux / Windows** 分别说明。
+
+### 1. 创建并激活环境
+
+conda 与 venv 任选其一。**区别主要在激活命令**，这是最容易卡住的一步。
+
+**macOS / Linux**（Terminal）
 
 ```bash
-# 1. 创建并激活环境（conda 或 venv 任选其一）
-conda create -n dl-env python=3.12 -y && conda activate dl-env
-#   或：python3.12 -m venv .venv && source .venv/bin/activate
+# 方式 A：conda
+conda create -n dl-env python=3.12 -y
+conda activate dl-env
 
-# 2. 安装依赖
+# 方式 B：venv（不用 conda 时）
+python3.12 -m venv .venv
+source .venv/bin/activate
+```
+
+**Windows**（**建议用「Anaconda Prompt」**，普通 PowerShell 里 `conda` 可能不可用）
+
+```powershell
+# 方式 A：conda
+conda create -n dl-env python=3.12 -y
+conda activate dl-env
+
+# 方式 B：venv
+py -3.12 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+> ⚠️ **Windows 两个常见报错**
+> - `conda : 无法将"conda"项识别为 cmdlet`　→ 改用「Anaconda Prompt」；或在 PowerShell 执行一次 `conda init powershell` 后**重开窗口**。
+> - 激活 venv 时提示"禁止运行脚本"　→ 执行 `Set-ExecutionPolicy -Scope Process RemoteSigned`（仅当前窗口生效），或改用 `.venv\Scripts\activate.bat`。
+
+### 2. 安装依赖（三系统通用）
+
+```bash
 pip install -r requirements.txt
+```
 
-# 3. 注册 Jupyter 内核（Notebook 里选 "Python [dl-env]"）
+### 3. 配置 torch 算力后端（三系统不同）
+
+`requirements.txt` 装的是 **CPU 版** torch。想用 GPU 或 Apple 芯片加速，按平台处理：
+
+| 平台 / 硬件 | 做法 |
+|---|---|
+| **macOS（Apple 芯片）** | 默认 wheel 已含 **MPS** 后端，**无需额外操作**。验证：`python -c "import torch; print(torch.backends.mps.is_available())"` → 应为 `True` |
+| **macOS（Intel 芯片）** | 仅 CPU，默认 wheel 即可 |
+| **Linux + NVIDIA 显卡** | 需装 CUDA 版，用官方源指定 CUDA 版本（示例 CUDA 12.4）：<br>`pip install torch --index-url https://download.pytorch.org/whl/cu124`<br>验证：`python -c "import torch; print(torch.cuda.is_available())"` |
+| **Windows + NVIDIA 显卡** | 同上命令；PowerShell 中若报参数错误，给 URL 加引号：`--index-url="https://..."` |
+| **无独立显卡** | 默认 wheel（CPU）即可，无需任何操作 |
+
+> ⚙️ CUDA 版本必须与显卡驱动匹配，**具体该用 `cu124` 还是别的版本，请到官方选择器确认**：<https://pytorch.org/get-started/locally/>（选好 OS / Package / Compute Platform 后会给出可直接复制的命令）。
+
+### 4. 注册 Jupyter 内核并启动（三系统通用）
+
+```bash
 python -m ipykernel install --user --name dl-env --display-name "Python [dl-env]"
-
-# 4. 打开 Notebook
 jupyter lab
 ```
 
-> ⚙️ `requirements.txt` 安装的是 CPU 版 torch。需要 GPU（CUDA）或 Apple MPS 时，请按官方命令单独安装，参考 <https://pytorch.org/get-started/locally/>。
->
-> 🖥 需要把训练放到远程 GPU 服务器上跑时，用仓库根目录的 [`remote_dl.sh`](remote_dl.sh)：先在脚本顶部【手动配置区】填好服务器信息，支持 `check` / `push` / `train` / `log` / `stop` / `pull` 六个子命令。
->
-> 📄 [SQL学习/](SQL学习/) 是纯 SQL + Shell 教程，**不需要 Python 环境**，只需一个可用的 PostgreSQL 实例。
+打开任一案例文件夹中的 Notebook，内核选择 **Python [dl-env]**。
+
+### 5. 平台差异备忘
+
+| 事项 | 说明 |
+|---|---|
+| `remote_dl.sh` | 是 **Bash 脚本**：macOS / Linux 直接运行；**Windows 需在 Git Bash 或 WSL 中执行**（或自行用 PowerShell 手工 rsync / ssh） |
+| 路径写法 | Notebook 内一律使用**相对路径**，三系统通用；请勿写死 `D:\...` 或 `/Users/...` |
+| `SQL学习/` 教程 | 以 **Linux 为主线**，macOS 与 Windows 的差异在该教程内用「🖥 系统差异」提示框标注；该教程**不需要 Python 环境**，只需一个可用的 PostgreSQL 实例 |
 
 ---
 
