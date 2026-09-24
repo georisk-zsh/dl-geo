@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="logo.png" alt="课程 logo" width="150">
+</p>
+
 <h1 align="center">《人工智能算法与岩土工程应用案例》</h1>
 <h3 align="center">AI Algorithms for Geotechnical Engineering: Case Studies</h3>
 
@@ -25,10 +29,10 @@
   - [· 5 循环神经网络](#5-循环神经网络)
   - [· 6 长短时记忆网络LSTM](#6-长短时记忆网络lstm)
 - [五、算法案例](#五算法案例)
-  - [案例1 LSTM 单点位移时序预测](#案例1-lstm-单点位移时序预测)
-  - [案例2 GCN 多点监测网时空预测](#案例2-gcn-多点监测网时空预测)
-  - [案例3 CNN-Transformer 混合架构](#案例3-cnn-transformer-混合架构)
-  - [案例4 XGBoost 与 SHAP 可解释归因](#案例4-xgboost-与-shap-可解释归因)
+  - [· 案例1 LSTM 单点位移时序预测](#案例1-lstm-单点位移时序预测)
+  - [· 案例2 GCN 多点监测网时空预测](#案例2-gcn-多点监测网时空预测)
+  - [· 案例3 CNN-Transformer 混合架构](#案例3-cnn-transformer-混合架构)
+  - [· 案例4 XGBoost 与 SHAP 可解释归因](#案例4-xgboost-与-shap-可解释归因)
 - [六、拓展案例与配套教程](#六拓展案例与配套教程)
 - [七、许可证](#七许可证)
 - [八、联系方式](#八联系方式)
@@ -96,6 +100,8 @@
 | **物理融合** | 不只调参：把渗流滞后核、空间连续性、单调性等先验写进损失函数或模型约束 |
 | **材料齐全** | 原理 PPT + 已执行 Notebook + 结果 CSV，开箱可复现 |
 
+[↑ 返回目录](#目录)
+
 ---
 
 ## ▍二、学习路径
@@ -135,6 +141,8 @@ flowchart TB
 4. 最后把某个案例**迁移到自己的监测数据上**——各 Notebook 的 §2.2 是配置区、§10.2 是 Checklist，照它走一遍即为一次完整的实战练习。
 
 > 📌 **不建议跳步**：直接读 LSTM 原理详解会卡在"梯度为什么消失""雅可比是什么"；而先花 15 小时学完入门模块，后面每一篇都会顺畅很多。
+
+[↑ 返回目录](#目录)
 
 ---
 
@@ -330,6 +338,9 @@ jupyter lab
 | `remote_dl.sh` | 是 **Bash 脚本**：macOS / Linux 直接运行；**Windows 需在 Git Bash 或 WSL 中执行**（或自行用 PowerShell 手工 rsync / ssh） |
 | 路径写法 | Notebook 内一律使用**相对路径**，三系统通用；请勿写死 `D:\...` 或 `/Users/...` |
 | `SQL学习/` 教程 | 以 **Linux 为主线**，macOS 与 Windows 的差异在该教程内用「🖥 系统差异」提示框标注；该教程**不需要 Python 环境**，只需一个可用的 PostgreSQL 实例 |
+
+[↑ 返回目录](#目录)
+
 ---
 
 ## ▍四、深度学习算法入门
@@ -388,13 +399,15 @@ jupyter lab
 
 **学完如何衔接**：04 卷积神经网络 → [案例3 CNN-Transformer](#案例3-cnn-transformer-混合架构)；05 循环神经网络 / 06 LSTM → [案例1 LSTM](#案例1-lstm-单点位移时序预测)。数学符号看不懂时，随时查阅 [数学预备知识.md](深度学习算法入门/数学预备知识.md)。
 
+[↑ 返回目录](#目录)
+
 ---
 
 ## ▍五、算法案例
 
 以下是四个已完成的算法案例，每个案例都包含一份**原理 PPT**（讲清算法本身）和一本**可执行 Notebook**（从零实现 → 精度检验 → 调参 → 物理融合改进 → 不确定性量化）。
 
-### 案例1 LSTM 单点位移时序预测
+### · 案例1 LSTM 单点位移时序预测
 
 📂 [LSTM/](LSTM/)　·　📘 [**算法原理详解**](LSTM/LSTM_算法原理.md)（公式推导 + 结构图）　·　📊 [原理 PPT](LSTM/01_LSTM_位移预测_算法介绍.pptx)　·　💻 [实现与调参 Notebook](LSTM/01_LSTM_位移预测_实现与调参.ipynb)
 
@@ -412,7 +425,7 @@ jupyter lab
 - **模型族对比**：LSTM / GRU / BiLSTM。
 
 
-### 案例2 GCN 多点监测网时空预测
+### · 案例2 GCN 多点监测网时空预测
 
 📂 [GCN/](GCN/)　·　📘 [**算法原理详解**](GCN/GCN_算法原理.md)（图卷积推导 + 结构图）　·　📊 [原理 PPT](GCN/02_GCN_多点监测网时空预测_算法介绍.pptx)　·　💻 [实现与调参 Notebook](GCN/02_GCN_多点监测网时空预测_实现与调参.ipynb)
 
@@ -431,7 +444,7 @@ jupyter lab
 - **结果分析**：逐节点误差的空间分布、全网 MC Dropout 区间。
 
 
-### 案例3 CNN-Transformer 混合架构
+### · 案例3 CNN-Transformer 混合架构
 
 📂 [CNN-Transformer/](CNN-Transformer/)　·　📘 [**算法原理详解**](CNN-Transformer/CNN-Transformer_算法原理.md)（注意力推导 + 结构图）　·　📊 [原理 PPT](CNN-Transformer/03_CNN_Transformer_位移预测_算法介绍.pptx)　·　💻 [实现与调参 Notebook](CNN-Transformer/03_CNN_Transformer_位移预测_实现与调参.ipynb)
 
@@ -450,7 +463,7 @@ jupyter lab
 - **不确定性**：MC Dropout 预测区间。
 
 
-### 案例4 XGBoost 与 SHAP 可解释归因
+### · 案例4 XGBoost 与 SHAP 可解释归因
 
 📂 [XGBoost+SHAP/](XGBoost+SHAP/)　·　📘 [**算法原理详解**](XGBoost+SHAP/XGBoost+SHAP_算法原理.md)（增益公式 + SHAP 推导）　·　📊 [原理 PPT](XGBoost+SHAP/04_XGBoost_SHAP_位移预测与归因_算法介绍.pptx)　·　💻 [实现与调参 Notebook](XGBoost+SHAP/04_XGBoost_SHAP_位移预测与归因_实现与调参.ipynb)　·　📄 [数据说明](XGBoost+SHAP/数据说明.md)
 
@@ -468,6 +481,8 @@ jupyter lab
 - **SHAP 归因**：加和一致性检查、特征重要性 bar/beeswarm、依赖图、加速日瀑布图、驱动因子 Top-5 报告；
 - **扩展**：分位数回归初探（衔接案例5的区间预测）。
 
+[↑ 返回目录](#目录)
+
 ---
 
 ## ▍六、拓展案例与配套教程
@@ -484,6 +499,8 @@ jupyter lab
 |---|---|
 | ![端到端 FS 预测](work001/figs/05_e2e_fs.png) | ![孔压预测](work001/figs/02_lstm_por.png) |
 
+[↑ 返回目录](#目录)
+
 ---
 
 ## ▍七、许可证
@@ -492,10 +509,14 @@ jupyter lab
 
 > 第三方材料说明：[`demo001/`](demo001/) 为论文原始 MATLAB 代码与数据，遵循其自身的 Apache-2.0 许可；其中的**论文 PDF 未随本仓库分发**（该 PDF 为出版社正式排版版，版权归出版社所有），请通过 [DOI](https://doi.org/10.1007/s11069-025-07703-4) 在期刊页面获取。
 
+[↑ 返回目录](#目录)
+
 ## ▍八、联系方式
 
 - 维护：OpenGeoriskLab in HNU
 - 问题与建议：欢迎提交 [Issue](https://github.com/georisk-zsh/dl-geo/issues) 或 Pull Request
+
+[↑ 返回目录](#目录)
 
 ---
 
