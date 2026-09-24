@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo.png" alt="课程 logo" width="150">
+  <img src="logo.webp" alt="课程 logo" width="150">
 </p>
 
 <h1 align="center">《人工智能算法与岩土工程应用案例》</h1>
