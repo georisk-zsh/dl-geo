@@ -154,7 +154,7 @@ flowchart TB
 
 **① Miniconda（必需）**　—— 用于创建 Python 环境并管理各类库
 
-到官网下载与你系统对应的安装包（**选 Python 3.12 版本**）：<https://docs.conda.io/en/latest/miniconda.html>
+到官网下载与你系统对应的安装包（**选 Python 3.12 版本**）：[Miniconda 官网](https://docs.conda.io/en/latest/miniconda.html)
 
 | 系统 | 安装方式 |
 |---|---|
@@ -172,7 +172,7 @@ conda --version
 
 | 系统 | 安装方式 |
 |---|---|
-| Windows | 下载 <https://git-scm.com/download/win> 双击安装 |
+| Windows | 下载 [Git for Windows 安装包](https://git-scm.com/download/win) 双击安装 |
 | macOS | 终端执行 `xcode-select --install`；或 `brew install git` |
 | Linux | `sudo apt install git`（Debian/Ubuntu）或 `sudo dnf install git` |
 
@@ -182,7 +182,7 @@ conda --version
 
 **方式 A：网页下载 ZIP（适合零基础，无需 Git）**
 
-1. 浏览器打开 <https://github.com/georisk-zsh/dl-geo>
+1. 浏览器打开 [项目主页](https://github.com/georisk-zsh/dl-geo)
 2. 点绿色的 **`Code`** 按钮 → 在下拉菜单里选 **`Download ZIP`**
 3. 下载完成后**解压缩**（Windows 右键 →"全部解压缩"；macOS 双击）
 4. 得到一个文件夹（通常名为 `dl-geo-main`），**建议重命名为 `dl-geo`**
@@ -286,7 +286,7 @@ pip install -r requirements.txt
 | **Windows + NVIDIA 显卡** | 同上命令；PowerShell 中若报参数错误，给 URL 加引号：`--index-url="https://..."` |
 | **无独立显卡** | 默认 wheel（CPU）即可，无需任何操作 |
 
-> ⚙️ CUDA 版本必须与显卡驱动匹配；**具体使用 `cu124` 还是其他版本，请到官方选择器确认**：<https://pytorch.org/get-started/locally/>（选好 OS / Package / Compute Platform 后会给出可直接复制的命令）。
+> ⚙️ CUDA 版本必须与显卡驱动匹配；**具体使用 `cu124` 还是其他版本，请到官方选择器确认**：[PyTorch 官方选择器](https://pytorch.org/get-started/locally/)（选好 OS / Package / Compute Platform 后会给出可直接复制的命令）。
 >
 > 💡 国内下载 CUDA 版 torch 通常较慢。**建议先安装 CPU 版跑通整个流程**，之后需要时再更换 GPU 版。
 
