@@ -9,7 +9,7 @@
   <img alt="Course" src="https://img.shields.io/badge/Course-Graduate-blueviolet">
   <img alt="Cases" src="https://img.shields.io/badge/Cases-4%20released%20%C2%B7%204%20planned-orange">
   <img alt="Notebooks" src="https://img.shields.io/badge/Notebooks-4%20%C2%B7%20Tutorials%206-blue">
-  <a href="SQL学习/README.md"><img alt="Materials" src="https://img.shields.io/badge/Materials-PPT%20%C2%B7%20Notebook%20%C2%B7%20Tutorial-brightgreen"></a>
+  <img alt="Materials" src="https://img.shields.io/badge/Materials-PPT%20%C2%B7%20Notebook%20%C2%B7%20Tutorial-brightgreen">
   <a href="requirements.txt"><img alt="Python" src="https://img.shields.io/badge/Python-3.12-3776AB?logo=python&amp;logoColor=white"></a>
   <a href="requirements.txt"><img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-2.9-EE4C2C?logo=pytorch&amp;logoColor=white"></a>
   <img alt="Platform" src="https://img.shields.io/badge/Platform-macOS%20%C2%B7%20Linux%20%C2%B7%20Windows-lightgrey">
@@ -35,7 +35,7 @@
   - [👉 案例2 GCN 多点监测网时空预测](#案例2-gcn-多点监测网时空预测)
   - [👉 案例3 CNN-Transformer 混合架构](#案例3-cnn-transformer-混合架构)
   - [👉 案例4 XGBoost 与 SHAP 可解释归因](#案例4-xgboost-与-shap-可解释归因)
-- [六、拓展案例与配套教程](#六拓展案例与配套教程)
+- [六、拓展案例](#六拓展案例)
 - [七、许可证](#七许可证)
 - [八、联系方式](#八联系方式)
 
@@ -55,7 +55,6 @@
 | 🧪 **8 个算法案例** | 每个含**原理 PPT + 可执行 Notebook**（已执行、带输出）；已交付 4 个、规划中 4 个 |
 | 🔗 **1 条完整方法链** | 从零实现 → 精度检验 → 调参 → 物理融合改进 → 不确定性量化 |
 | 📚 **2 个拓展案例** | 论文复现、经典时序基线对照 |
-| 🗄️ **1 份配套教程** | PostgreSQL 从零开始（监测数据的建库、查询与运维） |
 
 **👉 课程内容**
 
@@ -337,7 +336,6 @@ jupyter lab
 |---|---|
 | `remote_dl.sh` | 是 **Bash 脚本**：macOS / Linux 直接运行；**Windows 需在 Git Bash 或 WSL 中执行**（或自行用 PowerShell 手工 rsync / ssh） |
 | 路径写法 | Notebook 内一律使用**相对路径**，三系统通用；请勿写死 `D:\...` 或 `/Users/...` |
-| `SQL学习/` 教程 | 以 **Linux 为主线**，macOS 与 Windows 的差异在该教程内用「🖥 系统差异」提示框标注；该教程**不需要 Python 环境**，只需一个可用的 PostgreSQL 实例 |
 
 [↑ 返回目录](#目录)
 
@@ -485,13 +483,12 @@ jupyter lab
 
 ---
 
-## ▍六、拓展案例与配套教程
+## ▍六、拓展案例
 
 | 资源 | 内容 |
 |---|---|
 | [**work001/**](work001/)　论文复现 | 完整复现 Lin et al. (2025) *Natural Hazards* 的 **LSTM + 插值 + CNN** 降雨边坡稳定性预测流程：LSTM 预测孔压 → 插值成全边坡孔压场 → 栅格化为四通道图像 → CNN 回归安全系数 FS |
 | [**ARIMA-Kalman/**](ARIMA-Kalman/)　经典基线 | 与深度学习对照的经典时序方法：SARIMAX 拟合 + Kalman 滤波偏差跟踪 + 强弱基线对照，附[文章连载](ARIMA-Kalman/article_continuation.md) |
-| [**SQL学习/**](SQL学习/)　配套教程 | 《PostgreSQL 从零开始》：17 章正文 + 4 篇[附录](SQL学习/README.md)（术语表 / 错误信息速查 / SQL 速查表 / 自测与面试题）+ 一键建库脚本与 9 份练习，用于监测数据的建库与查询 |
 
 **案例效果示例**
 
