@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="logo.webp" alt="课程 logo" width="280">
-</p>
-
 <h1 align="center">《人工智能算法与岩土工程应用案例》</h1>
 <h3 align="center">AI Algorithms for Geotechnical Engineering: Case Studies</h3>
 
