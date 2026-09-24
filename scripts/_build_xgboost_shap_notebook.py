@@ -1240,7 +1240,7 @@ nb["metadata"] = {                                  # 内核元数据：指定 d
     "language_info": {"name": "python", "version": "3.12"},
 }
 
-OUT = "/Users/zhousuhua/PythonProjects/DL-Geo/XGBoost+SHAP/04_XGBoost_SHAP_位移预测与归因_实现与调参.ipynb"
+OUT = str(Path(__file__).resolve().parent.parent / "XGBoost+SHAP" / "04_XGBoost_SHAP_位移预测与归因_实现与调参.ipynb")
 with open(OUT, "w", encoding="utf-8") as f:        # 以 UTF-8 写出 .ipynb（JSON 格式由 nbformat 处理）
     nbf.write(nb, f)
 print(f"written: {OUT}  ({len(cells)} cells)")

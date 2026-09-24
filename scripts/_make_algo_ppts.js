@@ -13,8 +13,8 @@
  *   调参、消融/改进、Checklist 与常见坑、小结衔接页。
  *
  * 运行方式：
- *   node _make_algo_ppts.js        （需先 npm install pptxgenjs）
- *   生成文件为相对路径，请在项目根目录（DL-Geo/）下执行；
+ *   node scripts/_make_algo_ppts.js    （需先 npm install pptxgenjs）
+ *   脚本会自动切换到仓库根目录再执行，因此从任意目录调用均可；
  *   输出目录需已存在（LSTM/ GCN/ CNN-Transformer/ XGBoost+SHAP/）。
  *
  * 排版约定（新增/修改页时请遵守）：
@@ -31,6 +31,10 @@
  * ============================================================================
  */
 const pptxgen = require("pptxgenjs");
+const path = require("path");
+
+// 无论从哪个目录调用本脚本，都先切到仓库根目录，保证下方相对路径按原样生效
+process.chdir(path.join(__dirname, ".."));
 
 // 版式常量：幻灯片宽高（LAYOUT_WIDE）与统一页边距（英寸）
 const W = 13.33, H = 7.5, M = 0.55;
