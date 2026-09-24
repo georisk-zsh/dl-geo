@@ -1171,7 +1171,7 @@ nb["metadata"] = {                       # 内核元数据：dl-env 环境、Pyt
     "language_info": {"name": "python", "version": "3.12"},
 }
 
-OUT = "/Users/zhousuhua/PythonProjects/DL-Geo/CNN-Transformer/03_CNN_Transformer_位移预测_实现与调参.ipynb"
+OUT = str(Path(__file__).resolve().parent.parent / "CNN-Transformer" / "03_CNN_Transformer_位移预测_实现与调参.ipynb")
 with open(OUT, "w", encoding="utf-8") as f:
     nbf.write(nb, f)                     # 写出 .ipynb（后续可用 nbclient 执行回填输出）
 print(f"written: {OUT}  ({len(cells)} cells)")
