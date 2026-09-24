@@ -1,9 +1,6 @@
 <p align="center">
-  <img src="logo.webp" alt="课程 logo" width="150">
+  <img src="logo.webp" alt="课程 logo" width="100">
 </p>
-
-<h1 align="center">《人工智能算法与岩土工程应用案例》</h1>
-<h3 align="center">AI Algorithms for Geotechnical Engineering: Case Studies</h3>
 
 <p align="center">
   <img alt="Course" src="https://img.shields.io/badge/Course-Graduate-blueviolet">
@@ -13,6 +10,9 @@
   <a href="requirements.txt"><img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-2.9-EE4C2C?logo=pytorch&amp;logoColor=white"></a>
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/License-MIT-green"></a>
 </p>
+
+<h1 align="center">《人工智能算法与岩土工程应用案例》</h1>
+<h3 align="center">AI Algorithms for Geotechnical Engineering: Case Studies</h3>
 
 ---
 
