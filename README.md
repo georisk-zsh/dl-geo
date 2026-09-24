@@ -2,15 +2,17 @@
   <img src="logo-banner.webp" alt="课程 logo" width="100%">
 </p>
 
-<h1 align="center">《人工智能算法与岩土工程应用案例》</h1>
-<h3 align="center">AI Algorithms for Geotechnical Engineering: Case Studies</h3>
+<h3 align="center">《人工智能算法与岩土工程应用案例》</h3>
+<h4 align="center">AI Algorithms for Geotechnical Engineering: Case Studies</h4>
 
 <p align="center">
   <img alt="Course" src="https://img.shields.io/badge/Course-Graduate-blueviolet">
   <img alt="Cases" src="https://img.shields.io/badge/Cases-4%20released%20%C2%B7%204%20planned-orange">
+  <img alt="Notebooks" src="https://img.shields.io/badge/Notebooks-4%20%C2%B7%20Tutorials%206-blue">
   <a href="SQL学习/README.md"><img alt="Materials" src="https://img.shields.io/badge/Materials-PPT%20%C2%B7%20Notebook%20%C2%B7%20Tutorial-brightgreen"></a>
   <a href="requirements.txt"><img alt="Python" src="https://img.shields.io/badge/Python-3.12-3776AB?logo=python&amp;logoColor=white"></a>
   <a href="requirements.txt"><img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-2.9-EE4C2C?logo=pytorch&amp;logoColor=white"></a>
+  <img alt="Platform" src="https://img.shields.io/badge/Platform-macOS%20%C2%B7%20Linux%20%C2%B7%20Windows-lightgrey">
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/License-MIT-green"></a>
 </p>
 
@@ -47,13 +49,13 @@
 
 | | |
 |---|---|
-| **6 篇零基础教程** | [深度学习算法入门/](深度学习算法入门/README.md)：从神经元的基本概念讲起，直至 LSTM，每篇附可独立运行的 NumPy 代码 |
-| **4 篇算法原理详解** | LSTM / GCN / CNN-Transformer / XGBoost+SHAP 的完整数学推导、结构图与数值算例 |
-| **1 份数学工具包** | [数学预备知识.md](深度学习算法入门/数学预备知识.md)：以通俗语言与手算示例讲解矩阵、偏导、链式法则、softmax、特征值等工具 |
-| **8 个算法案例** | 每个含**原理 PPT + 可执行 Notebook**（已执行、带输出）；已交付 4 个、规划中 4 个 |
-| **1 条完整方法链** | 从零实现 → 精度检验 → 调参 → 物理融合改进 → 不确定性量化 |
-| **2 个拓展案例** | 论文复现、经典时序基线对照 |
-| **1 份配套教程** | PostgreSQL 从零开始（监测数据的建库、查询与运维） |
+| 🎓 **6 篇零基础教程** | [深度学习算法入门/](深度学习算法入门/README.md)：从神经元的基本概念讲起，直至 LSTM，每篇附可独立运行的 NumPy 代码 |
+| 📘 **4 篇算法原理详解** | LSTM / GCN / CNN-Transformer / XGBoost+SHAP 的完整数学推导、结构图与数值算例 |
+| 📐 **1 份数学工具包** | [数学预备知识.md](深度学习算法入门/数学预备知识.md)：以通俗语言与手算示例讲解矩阵、偏导、链式法则、softmax、特征值等工具 |
+| 🧪 **8 个算法案例** | 每个含**原理 PPT + 可执行 Notebook**（已执行、带输出）；已交付 4 个、规划中 4 个 |
+| 🔗 **1 条完整方法链** | 从零实现 → 精度检验 → 调参 → 物理融合改进 → 不确定性量化 |
+| 📚 **2 个拓展案例** | 论文复现、经典时序基线对照 |
+| 🗄️ **1 份配套教程** | PostgreSQL 从零开始（监测数据的建库、查询与运维） |
 
 **👉 课程内容**
 
